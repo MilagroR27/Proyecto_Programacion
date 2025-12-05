@@ -8,3 +8,10 @@ def cargar_pokedex():
         data = json.load(archivo)
 # Del diccionario principal, devuelve solo la lista de pokémon asociada a la clave "pokemon"
     return data["pokemon"]
+
+def tipo(pokemon, tipo):
+    return tipo in pokemon["type"]
+
+def debilidades(pokemon, debilidades):
+    return debilidades in pokemon ["weaknesses"]
+

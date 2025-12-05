@@ -1,0 +1,52 @@
+CAMPOS QUE PODEMOS USAR
+
+- "type": lista de tipos del Pokémon
+- "weaknesses": lista de debilidades
+- "next_evolution": indica si puede evolucionar
+- "prev_evolution": indica si es evolución inicial
+- "height": tamaño del Pokémon
+- "weight": peso del Pokémon
+
+PREGUNTAS QUE PODEMOS HACER
+
+POR TIPO
+¿Es de tipo Fuego?
+¿Es de tipo Agua?
+¿Es de tipo Planta?
+¿Es de tipo Eléctrico?
+¿Es de tipo Roca?
+¿Es de tipo Bicho?
+¿Es de más de un tipo?
+
+POR EVOLUCIÓN
+¿Puede evolucionar todavía?
+¿Es su primera forma?
+¿Tiene más de una posible evolución?
+¿Es una evolución intermedia? (tiene prev y next)
+¿Es una evolución final? (no tiene next)
+
+POR PESO
+¿Es liviano?
+¿Es pesado?
+
+POR ALTURA
+¿Es bajo? (altura menor a X m)
+¿Es alto? (altura mayor a X m)
+
+POR DEBILIDADES
+¿Es débil al tipo Eléctrico?
+¿Es débil al tipo Agua?
+¿Es débil al tipo Hielo?
+¿Tiene muchas debilidades? (más de 3)
+
+POR APARIENCIA O CARACTERÍSTICAS
+¿Parece un reptil? (tipo Planta o Veneno y familia Bulbasaur)
+¿Es parecido a un pájaro? (tipo Volador)
+¿Es parecido a un pez? (tipo Agua)
+
+POR RAREZA (POPULARIDAD)
+¿No puede evolucionar?
+¿Es un Pokémon “popular” o muy conocido? 
+(Bulbasaur, Ivysaur, Venusaur, Charmander, Charmeleon, Charizard, 
+Squirtle, Wartortle, Blastoise, Pikachu)
+
