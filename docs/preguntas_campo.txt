@@ -1,3 +1,5 @@
+https://www.pokemon.com/el/pokedex de aqui saco la info para las preguntas
+
 CAMPOS QUE PODEMOS USAR
 
 - "type": lista de tipos del Pokémon
