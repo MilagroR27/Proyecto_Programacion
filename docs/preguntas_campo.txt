@@ -2,8 +2,8 @@ https://www.pokemon.com/el/pokedex de aqui saco la info para las preguntas
 
 CAMPOS QUE PODEMOS USAR
 
-- "type": lista de tipos del Pokémon
-- "weaknesses": lista de debilidades
+- "type": lista de tipos del Pokémon .
+- "weaknesses": lista de debilidades .
 - "next_evolution": indica si puede evolucionar
 - "prev_evolution": indica si es evolución inicial
 - "height": tamaño del Pokémon
