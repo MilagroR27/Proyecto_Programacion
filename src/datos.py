@@ -6,11 +6,43 @@ def cargar_pokedex():
         data = json.load(archivo)
     # Devuelve la lista de Pokémon dentro de la clave "pokemon"
     return data["pokemon"]
+# BÚSQUEDA DE POKÉMON
+# Devuelve el Pokémon cuyo número coincide con num_buscado.
+def buscar_pokemon_por_num(lista_pokemones, num_buscado):
+    for pokemon in lista_pokemones:
+        if pokemon["num"] == num_buscado:
+            return pokemon
+    return None
+
+# ------------------------------------
+# FUNCIONES DE PREGUNTAS
+# ------------------------------------
+def preguntar_si_no(pregunta):
+    """
+    Hace una pregunta al usuario y solo acepta 'si' o 'no'.
+    Devuelve True si la respuesta es 'si' y False si es 'no'.
+    """
+    while True:
+        respuesta = input(pregunta + " (si/no): ").lower()
+
+        if respuesta in ["si", "sí"]:
+            return True
+        if respuesta == "no":
+            return False
+        print("Responde solo con si o no.")
 
 # TIPOS
 # Devuelve True si el Pokémon es del tipo especificado.
-def es_de_tipo(pokemon, tipo):
-    return tipo in pokemon["type"]
+def obtener_todos_los_tipos(lista_pokemones):
+    """
+    Extrae y devuelve una lista con todos los tipos únicos del archivo JSON.
+    """
+    tipos_unicos = set()
+    
+    for pokemon in lista_pokemones:
+        for tipo in pokemon["type"]:
+            tipos_unicos.add(tipo)
+    return sorted(list(tipos_unicos))
 """ 
 preguntas como 
 “¿Es de tipo Fuego?”
@@ -18,8 +50,16 @@ preguntas como
 """
 
 # Devuelve True si el Pokémon tiene más de un tipo.
-def tiene_mas_de_un_tipo(pokemon):
-    return len(pokemon["type"]) > 1
+# ¿Tiene más de un tipo?
+def filtrar_por_multiples_tipos(lista_pokemones, mas_de_un_tipo):
+    if mas_de_un_tipo:
+        return [pokemon for pokemon in lista_pokemones if len(pokemon["type"]) > 1]
+    else:
+        return [pokemon for pokemon in lista_pokemones if len(pokemon["type"]) == 1]
+
+def filtrar_por_tipo(lista_pokemones, tipo_buscado):
+    return [pokemon for pokemon in lista_pokemones if tipo_buscado in pokemon["type"]]
+
 
 # DEBILIDADES
 # Devuelve True si el Pokémon es débil al tipo especificado.
@@ -38,18 +78,11 @@ def tiene_muchas_debilidades(pokemon):
 
 # EVOLUCIÓN
 # Devuelve True si el Pokémon puede evolucionar (tiene evolución siguiente).
-def puede_evolucionar(pokemon):
-    return "next_evolution" in pokemon
-"""
-“¿Puede evolucionar todavía?”
-"""
-
-# Devuelve True si NO tiene prev_evolution (es la primera forma).
-def es_primera_forma(pokemon):
-    return "prev_evolution" not in pokemon
-"""
-“¿Es su primera forma?”
-"""
+def filtrar_por_evolucion(lista_pokemones, tiene_evolucion):
+    if tiene_evolucion:
+        return [pokemon for pokemon in lista_pokemones if "next_evolution" in pokemon]
+    else:
+        return [pokemon for pokemon in lista_pokemones if "next_evolution" not in pokemon]
 
 # Devuelve la cantidad de evoluciones que tiene.
 def cantidad_evoluciones(pokemon):
@@ -57,29 +90,42 @@ def cantidad_evoluciones(pokemon):
         return len(pokemon["next_evolution"])
     return 0
 
+# ¿Puede evolucionar todavía?
+def filtrar_puede_evolucionar(lista_pokemones, puede):
+    if puede:
+        return [p for p in lista_pokemones if "next_evolution" in p]
+    else:
+        return [p for p in lista_pokemones if "next_evolution" not in p]
+
 # ALTURA (conversión a número)
-# Devuelve True si su altura es menor a 1 metro.
-def es_bajo(pokemon):
-    altura = float(pokemon["height"].split(" ")[0])
-    return altura < 1
-
-"""
-# Devuelve True si su altura está entre 1 y 1.5 metros.
-def es_intermedio(pokemon):
-    altura = float(pokemon["height"].split(" ")[0])
-    return 1 <= altura <= 1.5
-
-# Devuelve True si su altura es mayor a 1.5 metros.
-def es_alto(pokemon):
-    altura = float(pokemon["height"].split(" ")[0])
-    return altura > 1.5
-"""
+def filtrar_por_altura(lista_pokemones, minimo, maximo=None):
+    resultado = []
+    for pokemon in lista_pokemones:
+        altura = float(pokemon["height"].split()[0])  # Convierte "0.92 m" → 0.92
+        if maximo is None:
+            if altura >= minimo:
+                resultado.append(pokemon)
+        else:
+            if minimo <= altura <= maximo:
+                resultado.append(pokemon)
+    return resultado
 
 # PESO (conversión a número)
 # Devuelve True si su peso es menor a 20 kg.
-def es_liviano(pokemon):
-    peso = float(pokemon["weight"].split(" ")[0])
-    return peso < 20
+def filtrar_por_peso(lista_pokemones, minimo, maximo=None):
+    resultado = []
+    
+    for pokemon in lista_pokemones:
+        peso = float(pokemon["weight"].split()[0])  # Convierte "6.9 kg" → 6.9
+        
+        if maximo is None:
+            if peso >= minimo:
+                resultado.append(pokemon)
+        else:
+            if minimo <= peso <= maximo:
+                resultado.append(pokemon)
+    
+    return resultado
 
 # POPULARIDAD
 POPULAR = [
@@ -93,11 +139,7 @@ POPULAR = [
 def es_popular(pokemon):
     return pokemon["name"] in POPULAR
 
-
-
-
-#hola
-
+# funciones debilidades
 
 def descartar_por_devilidad(lista_pokemones,tipo):
     return [pokemon for pokemon in lista_pokemones if tipo in pokemon["weaknesses"]]
@@ -138,4 +180,16 @@ def descartar_por_varios_tipos(lista_pokemones, mas_de_un_tipo):
 def descartar_por_tipo(lista_pokemones, tipo_buscado):
     return {pokemon for pokemon in lista_pokemones if tipo_buscado in pokemon["type"]}
 
+# Primera forma (no tiene prev_evolution)
+def filtrar_por_primera_forma(lista_pokemones):
+    return [p for p in lista_pokemones if "prev_evolution" not in p]
 
+
+# Evolución intermedia (tiene prev y next)
+def filtrar_por_forma_intermedia(lista_pokemones):
+    return [p for p in lista_pokemones if "prev_evolution" in p and "next_evolution" in p]
+
+
+# Evolución final (no tiene next_evolution)
+def filtrar_por_forma_final(lista_pokemones):
+    return [p for p in lista_pokemones if "next_evolution" not in p]
