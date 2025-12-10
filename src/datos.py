@@ -92,3 +92,50 @@ POPULAR = [
 # Devuelve True si el Pokémon es considerado popular.
 def es_popular(pokemon):
     return pokemon["name"] in POPULAR
+
+
+
+
+#hola
+
+
+def descartar_por_devilidad(lista_pokemones,tipo):
+    return [pokemon for pokemon in lista_pokemones if tipo in pokemon["weaknesses"]]
+
+def descartar_por_muchas_debilidades(lista_pokemones):
+    return [pokemon for pokemon in lista_pokemones if len(pokemon["weaknesses"]) >= 3 ]
+
+
+# esta funcion sirve para aceptar solo "si" o "no", si no hace un bucle 
+
+def preguntar(pregunta) -> bool:
+    while True:
+        respuesta = input(pregunta + "(si/no): " ).lower()
+        if respuesta == "si":
+            return True
+        elif respuesta == "no":
+            return False
+        print("responde solo con si o no")
+
+# esta funcion son va a servir para preguntar por los tipos 
+def obtener_todos_los_tipos(lista_pokemones):
+    # extrae todos los tipos unicos del archivo json
+    tipos_unicos = set() #no acepta duplicados
+    for pokemon in lista_pokemones:
+        for tipo in pokemon["type"]:
+            tipos_unicos.add(tipo) #guarda los tipos de cada pokemon
+    return sorted(list(tipos_unicos)) 
+    # list hace una lista. sorted la ordenada alfabeticamente. tipos_unicos es un set no tiene orden 
+
+
+def descartar_por_varios_tipos(lista_pokemones, mas_de_un_tipo):
+    if mas_de_un_tipo:
+        return [pokemon for pokemon in lista_pokemones if len(pokemon["type"]) > 1]
+    else:
+        return [pokemon for pokemon in lista_pokemones if len(pokemon["type"]) == 1]
+    
+
+def descartar_por_tipo(lista_pokemones, tipo_buscado):
+    return {pokemon for pokemon in lista_pokemones if tipo_buscado in pokemon["type"]}
+
+

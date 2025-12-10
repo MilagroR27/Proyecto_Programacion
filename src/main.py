@@ -7,7 +7,12 @@ from datos import (
     es_primera_forma,
     es_bajo,
     es_liviano,
-    es_popular
+    es_popular, preguntar,
+    descartar_por_tipo, 
+    descartar_por_varios_tipos,
+    descartar_por_devilidad,
+    descartar_por_muchas_debilidades,
+    obtener_todos_los_tipos,
 )
 
 pokedex = cargar_pokedex()
@@ -48,3 +53,36 @@ for pokemon in pokedex[:5]:
         print(pokemon["name"], "es de tipo Agua")
     else:
         print(pokemon["name"], "NO es de tipo Agua")"""
+
+
+
+
+candidatos = pokedex[:] # copia los pokemones disponobles
+
+print(" piensa en un pokemon \n")
+
+# sirve para obtener todos los tipos unicos del archivo sin repetirse
+tipos_disponibles = obtener_todos_los_tipos(candidatos)
+
+# PREGUNTAS POR TIPO 
+
+for tipo in tipos_disponibles:
+    if len(candidatos) <= 1:
+        break
+    elif preguntar(f"tu pokemon es tipo {tipo}"):
+        candidatos = descartar_por_tipo(candidatos,tipo)
+
+
+#hola
+# RESULTADO FINAL
+
+print("\n Pokemones posibles: ", len(candidatos))
+print("\n")
+
+if len(candidatos) == 1:
+    print("tu pokemon es " + candidatos[0]["name"])
+elif len(candidatos) > 1:
+    for pokemon in candidatos:
+        print(pokemon["name"])
+else:
+    print("no encontre ningun pokemon con esas caracteristicas")
