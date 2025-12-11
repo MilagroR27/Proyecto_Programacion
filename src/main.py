@@ -137,6 +137,15 @@ print("Pokémon posibles:", len(candidatos))
 print("---------------------------------\n")
 
 if len(candidatos) == 1:
+    pokemon = candidatos[0]
+    print("¡Tu Pokémon es:", pokemon["name"], "!")
+    
+    # ABRIR IMAGEN EN EL NAVEGADOR
+    import webbrowser
+    webbrowser.open(pokemon["img"])
+
+
+if len(candidatos) == 1:
     print("¡Creo que tu Pokémon es... 👉 " + candidatos[0]["name"] + "!")
 elif len(candidatos) > 1:
     print("No estoy seguro, pero podrían ser estos:")

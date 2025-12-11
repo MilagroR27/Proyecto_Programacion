@@ -7,7 +7,6 @@ def cargar_pokedex():
     # Devuelve la lista de Pokémon dentro de la clave "pokemon"
     return data["pokemon"]
 
-
 # BÚSQUEDA DE POKÉMON
 # Devuelve el Pokémon cuyo número coincide con num_buscado.
 def buscar_pokemon_por_num(lista_pokemones, num_buscado):
@@ -15,7 +14,6 @@ def buscar_pokemon_por_num(lista_pokemones, num_buscado):
         if pokemon["num"] == num_buscado:
             return pokemon
     return None
-
 
 # ------------------------------------
 # FUNCIONES DE PREGUNTAS
@@ -34,7 +32,6 @@ def preguntar_si_no(pregunta):
             return False
         print("Responde solo con si o no.")
 
-
 # TIPOS
 def obtener_todos_los_tipos(lista_pokemones):
     """
@@ -47,7 +44,6 @@ def obtener_todos_los_tipos(lista_pokemones):
     # list hace una lista. sorted la ordena alfabéticamente.
     return sorted(list(tipos_unicos))
 
-
 def filtrar_por_multiples_tipos(lista_pokemones, mas_de_un_tipo):
     """
     Devuelve solo Pokémon con 1 tipo o con más de 1 tipo, según mas_de_un_tipo.
@@ -57,13 +53,11 @@ def filtrar_por_multiples_tipos(lista_pokemones, mas_de_un_tipo):
     else:
         return [pokemon for pokemon in lista_pokemones if len(pokemon["type"]) == 1]
 
-
 def filtrar_por_tipo(lista_pokemones, tipo_buscado):
     """
     Devuelve los Pokémon que tengan el tipo indicado.
     """
     return [pokemon for pokemon in lista_pokemones if tipo_buscado in pokemon["type"]]
-
 
 # DEBILIDADES
 def es_debil_a(pokemon, tipo):
@@ -72,13 +66,11 @@ def es_debil_a(pokemon, tipo):
     """
     return tipo in pokemon["weaknesses"]
 
-
 def tiene_muchas_debilidades(pokemon):
     """
     Devuelve True si el Pokémon tiene más de 3 debilidades.
     """
     return len(pokemon["weaknesses"]) > 3
-
 
 def descartar_por_debilidad(lista_pokemones, tipo):
     """
@@ -86,13 +78,11 @@ def descartar_por_debilidad(lista_pokemones, tipo):
     """
     return [pokemon for pokemon in lista_pokemones if tipo in pokemon["weaknesses"]]
 
-
 def descartar_por_muchas_debilidades(lista_pokemones):
     """
     Devuelve los Pokémon con 3 o más debilidades.
     """
     return [pokemon for pokemon in lista_pokemones if len(pokemon["weaknesses"]) >= 3]
-
 
 # EVOLUCIÓN
 def filtrar_por_evolucion(lista_pokemones, tiene_evolucion):
@@ -105,7 +95,6 @@ def filtrar_por_evolucion(lista_pokemones, tiene_evolucion):
     else:
         return [pokemon for pokemon in lista_pokemones if "next_evolution" not in pokemon]
 
-
 def cantidad_evoluciones(pokemon):
     """
     Devuelve la cantidad de evoluciones siguientes.
@@ -113,7 +102,6 @@ def cantidad_evoluciones(pokemon):
     if "next_evolution" in pokemon:
         return len(pokemon["next_evolution"])
     return 0
-
 
 def filtrar_puede_evolucionar(lista_pokemones, puede):
     """
@@ -124,7 +112,6 @@ def filtrar_puede_evolucionar(lista_pokemones, puede):
         return [p for p in lista_pokemones if "next_evolution" in p]
     else:
         return [p for p in lista_pokemones if "next_evolution" not in p]
-
 
 # ALTURA (conversión a número)
 def filtrar_por_altura(lista_pokemones, minimo, maximo=None):
@@ -143,7 +130,6 @@ def filtrar_por_altura(lista_pokemones, minimo, maximo=None):
             if minimo <= altura <= maximo:
                 resultado.append(pokemon)
     return resultado
-
 
 # PESO (conversión a número)
 def filtrar_por_peso(lista_pokemones, minimo, maximo=None):
@@ -165,7 +151,6 @@ def filtrar_por_peso(lista_pokemones, minimo, maximo=None):
 
     return resultado
 
-
 # POPULARIDAD
 POPULAR = [
     "Bulbasaur", "Ivysaur", "Venusaur",
@@ -174,13 +159,11 @@ POPULAR = [
     "Pikachu"
 ]
 
-
 def es_popular(pokemon):
     """
     Devuelve True si el Pokemon está en la lista POPULAR.
     """
     return pokemon["name"] in POPULAR
-
 
 # esta funcion sirve para aceptar solo "si" o "no", si no hace un bucle
 def preguntar(pregunta) -> bool:
@@ -192,7 +175,6 @@ def preguntar(pregunta) -> bool:
             return False
         print("responde solo con si o no")
 
-
 def descartar_por_varios_tipos(lista_pokemones, mas_de_un_tipo):
     """
     Igual idea que filtrar_por_multiples_tipos, pero con otro nombre.
@@ -202,7 +184,6 @@ def descartar_por_varios_tipos(lista_pokemones, mas_de_un_tipo):
     else:
         return [pokemon for pokemon in lista_pokemones if len(pokemon["type"]) == 1]
 
-
 def descartar_por_tipo(lista_pokemones, tipo_buscado):
     """
     Devuelve una LISTA de Pokémon que tienen ese tipo.
@@ -210,16 +191,13 @@ def descartar_por_tipo(lista_pokemones, tipo_buscado):
     """
     return [pokemon for pokemon in lista_pokemones if tipo_buscado in pokemon["type"]]
 
-
 # Primera forma (no tiene prev_evolution)
 def filtrar_por_primera_forma(lista_pokemones):
     return [p for p in lista_pokemones if "prev_evolution" not in p]
 
-
 # Evolución intermedia (tiene prev y next)
 def filtrar_por_forma_intermedia(lista_pokemones):
     return [p for p in lista_pokemones if "prev_evolution" in p and "next_evolution" in p]
-
 
 # Evolución final (no tiene next_evolution)
 def filtrar_por_forma_final(lista_pokemones):
